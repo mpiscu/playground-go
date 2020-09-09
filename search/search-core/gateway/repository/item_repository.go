@@ -3,7 +3,6 @@ package repository
 import(
     "crypto/sha1"
     "encoding/hex"
-    "errors"
     "fmt"
     "github.com/blevesearch/bleve"
     "github.com/blevesearch/bleve/analysis/analyzer/keyword"
@@ -17,10 +16,6 @@ const (
     itemIndexName = "items"
 
     itemTypeURL="url"
-)
-
-var (
-    ErrNotFound = errors.New("not found")
 )
 
 type searchItem struct {
@@ -125,7 +120,7 @@ func (r *ItemRepository) GetByID(id string) (*domain.SearchResult, error) {
         return nil, err
     }
     if doc == nil {
-        return nil, ErrNotFound
+        return nil, domain.ErrNotFound
     }
 
     result := &domain.SearchResult{}

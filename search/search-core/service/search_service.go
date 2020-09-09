@@ -18,11 +18,5 @@ func (svc *ItemSearchSvc) Search(criteria *domain.SearchCriteria) (*domain.Searc
         return svc.itemRepository.GetByID(criteria.ID)
     }
 
-    r, err := svc.itemRepository.Search(criteria)
-    
-    if err == repository.ErrNotFound {
-        err = ErrNotFound
-    }
-
-    return r, err
+    return svc.itemRepository.Search(criteria)
 }

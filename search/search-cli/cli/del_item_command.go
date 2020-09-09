@@ -3,6 +3,7 @@ package cli
 import(
     "flag"
     "strings"
+    "search/search-core/domain"
     "search/search-core/service"
 )
 
@@ -50,7 +51,7 @@ func (c *DelItemCommand) Parse(args []string) error {
 func (c *DelItemCommand) Execute() error {
     for _, id := range c.ids {
         err := c.indexSvc.Delete(id) 
-        if err !=nil && err!=service.ErrNotFound {
+        if err !=nil && err!=domain.ErrNotFound {
             return err
         }
         println("Item", id, "deleted")

@@ -19,13 +19,10 @@ func (svc *ItemIndexSvc) IndexURLItem(item *domain.URLSearchItem) (string, error
 
 func (svc *ItemIndexSvc) Update(r domain.UpdateRequest) error {
     if r.ID == "" {
-        return ErrNotFound
+        return domain.ErrNotFound
     }
 
     searchResult, err := svc.itemRepository.GetByID(r.ID)
-    if err == repository.ErrNotFound {
-        return ErrNotFound
-    }
     if err != nil {
         return err
     }
@@ -65,11 +62,7 @@ func (svc *ItemIndexSvc) Update(r domain.UpdateRequest) error {
 }
 
 func (svc *ItemIndexSvc) Delete(id string) error {
-    err := svc.itemRepository.Delete(id)
-    if err == repository.ErrNotFound {
-        return ErrNotFound
-    }
-    return err
+    return svc.itemRepository.Delete(id)
 }
 
 func textSliceRemovePos(slice []string, pos int) []string {
