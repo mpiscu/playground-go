@@ -34,7 +34,7 @@ Setup : `source setup-dev.sh` prepares environment for development. Utility scri
 
 # Install/Uninstall
 
-Install   : `sudo cp .go/bin/search-cli /usr/bin/`
+Install   : `sudo cp .go/bin/search-cli /usr/bin/`  
 Uninstall : `sudo rm .go/bin/search-cli && sudo rm -rf ~/.search`
 
 # Usage
