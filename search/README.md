@@ -21,13 +21,16 @@
 
 *Item* - An item is a piece of information which must be searchable. The item will be searchable by using tags. The item can have some notes which describe the item. E.g. UrlItem has an url.
 
-*Tag* - Is an identifier which belongs to an item. Tags are used in search criteria.
+*Tag* - Is an identifier which belongs to an item. Tags are used as criteria in search operations.
 
-*Note* - A descirption of the item which should provide more context to the user
+*Note* - A description of the item which should provide more context to the user
 
 # Dev
 
-Setup : source setup-dev.sh
+Prerequisites : golang installed, modules enabled.
+
+Setup : `source setup-dev.sh` prepares environment for development. Utility scripts available in `scripts` folder are introduced in path.
+
 
 # Install/Uninstall
 
