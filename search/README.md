@@ -1,3 +1,7 @@
+# Description
+
+    A command line utility which can index various piece of data. The data will be searchable by tags. Each information can have specific properites. E.g. an url with a description.
+
 # Requirements
 
 1. AddURLItem : As an user I want to index an url with specified tags. The url must be searchable by those tags. The url can have user notes.
