@@ -40,16 +40,19 @@ var _ = Describe("IndexService", func() {
         It("removes first element", func() {
             slice := textSliceRemovePos([]string{"1","2","3"}, 0)
             Expect(len(slice)).To(Equal(2))
+            Expect(slice[0]).To(Equal("2"))
         })
 
         It("removes last element", func() {
             slice := textSliceRemovePos([]string{"1","2","3"}, 2)
             Expect(len(slice)).To(Equal(2))
+            Expect(slice[len(slice)-1]).To(Equal("2"))
         })
 
         It("removes middle element", func() {
             slice := textSliceRemovePos([]string{"1","2","3"}, 1)
             Expect(len(slice)).To(Equal(2))
+            Expect(slice[1]).To(Equal("3"))
         })
 
 
