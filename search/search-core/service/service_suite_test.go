@@ -9,5 +9,5 @@ import (
 
 func TestService(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Adder Suite")
+	RunSpecs(t, "Search Service Suite")
 }
