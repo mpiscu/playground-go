@@ -2,7 +2,6 @@ package cli
 
 import(
     "flag"
-    "strings"
     "errors"
     "search/search-core/domain"
     "search/search-core/service"
@@ -52,8 +51,8 @@ func (c *UpdateItemCommand) Parse(args []string) error {
         return err
     }
 
-    c.addTags = strings.Split(*addTagsPtr, ",")
-    c.delTags = strings.Split(*delTagsPtr, ",")
+    c.addTags = TextSplitCSV(*addTagsPtr)
+    c.delTags = TextSplitCSV(*delTagsPtr)
 
     c.note = *notePtr
 

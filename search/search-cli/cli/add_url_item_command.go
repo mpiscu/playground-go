@@ -2,7 +2,6 @@ package cli
 
 import(
     "flag"
-    "strings"
     "search/search-core/domain"
     "search/search-core/service"
 )
@@ -51,7 +50,7 @@ func (c *AddUrlItemCommand) Parse(args []string) error {
         return err
     }
 
-    c.tags = strings.Split(*tagsPtr, ",")
+    c.tags = TextSplitCSV(*tagsPtr)
 
     c.note = *notePtr
 

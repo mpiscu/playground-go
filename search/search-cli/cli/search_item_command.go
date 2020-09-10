@@ -37,6 +37,7 @@ func (c *SearchItemCommand) Parse(args []string) error {
 
     searchItemCmd := flag.NewFlagSet(searchItemCmdName, flag.ExitOnError)
     searchIDPtr := searchItemCmd.String("id", "", "search item by a specific id")
+    searchTypePtr := searchItemCmd.String("type","", "comma separated type, one of: url")
     searchIncludePtr := searchItemCmd.String("include", "", "include item if has any of the comma separated tags")
     searchIncludeAllPtr := searchItemCmd.String("include-all", "", "include item if has all comma separated tags")
     searchExcludePtr := searchItemCmd.String("exclude", "", "exclude item if has any of the comma separated tags")
@@ -44,17 +45,18 @@ func (c *SearchItemCommand) Parse(args []string) error {
     sizePtr := searchItemCmd.Int("size", 10, "results limit for each item type")
     searchItemCmd.Parse(args[2:])
 
-    if *searchIDPtr=="" && *searchIncludePtr=="" && *searchIncludeAllPtr=="" && *searchExcludePtr=="" && *searchExcludeAllPtr =="" {
+    if *searchIDPtr=="" && *searchTypePtr=="" && *searchIncludePtr=="" && *searchIncludeAllPtr=="" && *searchExcludePtr=="" && *searchExcludeAllPtr =="" {
         return errors.New("at least one filtering criteria must be specified")
     }
 
     c.searchCriteria = domain.SearchCriteria{
         ID: *searchIDPtr,
         Limit: *sizePtr,
-        IncludeAny: strings.Split(*searchIncludePtr, ","),
-        IncludeAll: strings.Split(*searchIncludeAllPtr, ","),
-        ExcludeAny: strings.Split(*searchExcludePtr, ","),
-        ExcludeAll: strings.Split(*searchExcludeAllPtr,","),
+        Types: TextSplitCSV(*searchTypePtr),
+        IncludeAny: TextSplitCSV(*searchIncludePtr),
+        IncludeAll: TextSplitCSV(*searchIncludeAllPtr),
+        ExcludeAny: TextSplitCSV(*searchExcludePtr),
+        ExcludeAll: TextSplitCSV(*searchExcludeAllPtr),
     }
 
     return nil

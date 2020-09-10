@@ -2,7 +2,6 @@ package cli
 
 import(
     "flag"
-    "strings"
     "search/search-core/domain"
     "search/search-core/service"
 )
@@ -39,7 +38,7 @@ func (c *DelItemCommand) Parse(args []string) error {
 
     delItemCmd.Parse(args[2:])
 
-    c.ids =  strings.Split(*idPtr, ",")
+    c.ids =  TextSplitCSV(*idPtr)
     if err := ValidateNotEmpty(c.ids, "ids"); err != nil {
         return err
     }

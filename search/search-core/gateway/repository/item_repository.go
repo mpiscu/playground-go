@@ -156,9 +156,29 @@ func (r *ItemRepository) Search(criteria *domain.SearchCriteria) (*domain.Search
 
     searchQuery := bleve.NewBooleanQuery()
 
-    includeQuery := bleve.NewDisjunctionQuery()
-    searchQuery.AddMust(includeQuery)
+    // filter types
+    if (len(criteria.Types)>0) {
+        onlyTagsQuery := bleve.NewDisjunctionQuery()
+        for _, t := range criteria.Types {
+            switch t {
+                case itemTypeURL: {
+                    includeTypeQuery:=bleve.NewMatchQuery(t)
+                    includeTypeQuery.SetField("type")
+                    onlyTagsQuery.AddQuery(includeTypeQuery)
+                    continue
+                }
+             default: return nil, fmt.Errorf("Item type %s is unknown", t)
+            }
+        }
+        searchQuery.AddMust(onlyTagsQuery)
+    }
 
+    // include tags
+    includeQuery := bleve.NewDisjunctionQuery()
+    if len(criteria.IncludeAny)>0 || len(criteria.IncludeAll)>0 {
+        searchQuery.AddMust(includeQuery)
+    }
+ 
     if len(criteria.IncludeAny)>0 {
         includeAnyQuery := bleve.NewDisjunctionQuery()
         for _, tag := range criteria.IncludeAny {
@@ -179,8 +199,11 @@ func (r *ItemRepository) Search(criteria *domain.SearchCriteria) (*domain.Search
         includeQuery.AddQuery(includeAllQuery)
     }
 
+    // exclude tags
     excludeQuery := bleve.NewDisjunctionQuery()
-    searchQuery.AddMustNot(excludeQuery)
+    if len(criteria.ExcludeAny)>0 || len(criteria.ExcludeAll)>0 {
+        searchQuery.AddMustNot(excludeQuery)
+    }
 
     if len(criteria.ExcludeAny)>0 {
         excludeAnyQuery := bleve.NewDisjunctionQuery()
