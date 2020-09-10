@@ -138,9 +138,11 @@ func (r *ItemRepository) GetByID(id string) (*domain.SearchResult, error) {
         }
     }
 
+    searchItem := domain.SearchItem { ID: doc.ID, Tags: tagsValue, Note: noteValue} 
+
 
     switch typeValue {
-        case itemTypeURL: result.URLItems = append(result.URLItems, domain.URLSearchItem{ SearchItem: domain.SearchItem { ID: doc.ID, Tags: tagsValue, Note: noteValue} , URL: urlValue})
+        case itemTypeURL: result.URLItems = append(result.URLItems, domain.URLSearchItem{ SearchItem: searchItem, URL: urlValue})
         default: return nil, fmt.Errorf("Item type %s is not recognized", typeValue)
     }
  
@@ -224,15 +226,10 @@ func (r *ItemRepository) Search(criteria *domain.SearchCriteria) (*domain.Search
             note = noteValue.(string)
         }
 
+        searchItem := domain.SearchItem { ID: hit.ID, Tags: tags, Note: note }
+
         switch itemType := hit.Fields["type"]; itemType.(string) {
-            case itemTypeURL: 
-                result.URLItems = append(result.URLItems, domain.URLSearchItem{ 
-                    SearchItem: domain.SearchItem { 
-                        ID: hit.ID, 
-                        Tags: tags, 
-                        Note: note,
-                    }, 
-                URL: hit.Fields["url"].(string) }) 
+            case itemTypeURL: result.URLItems = append(result.URLItems, domain.URLSearchItem{ SearchItem: searchItem, URL: hit.Fields["url"].(string) }) 
             default: return nil, fmt.Errorf("Item type %s is not reognized", itemType.(string))
         }
     }
