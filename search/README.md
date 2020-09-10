@@ -1,6 +1,6 @@
 # Description
 
-    A command line utility which can index various piece of data. The data will be searchable by tags. Each information can have specific properites. E.g. an url with a description.
+A command line utility which can index various piece of data. The data will be searchable by tags. Each information can have specific properites. E.g. an url with a description.
 
 # Requirements
 
