@@ -37,7 +37,7 @@ func (c *SearchItemCommand) Parse(args []string) error {
 
     searchItemCmd := flag.NewFlagSet(searchItemCmdName, flag.ExitOnError)
     searchIDPtr := searchItemCmd.String("id", "", "search item by a specific id")
-    searchTypePtr := searchItemCmd.String("type","", "comma separated type, one of: url")
+    searchTypePtr := searchItemCmd.String("type","", "comma separated types, one of: url")
     searchIncludePtr := searchItemCmd.String("include", "", "include item if has any of the comma separated tags")
     searchIncludeAllPtr := searchItemCmd.String("include-all", "", "include item if has all comma separated tags")
     searchExcludePtr := searchItemCmd.String("exclude", "", "exclude item if has any of the comma separated tags")
