@@ -7,11 +7,15 @@
 5. UpdateItemNote: As an user I want to be able to update an existing item note.
 6. SearchItem: As an user I want to be able to search an item by its tags. Exact and partial matching will be supported.
 
-# Design
+# Minimal design
 
 - cli layer - contains all commands and cli application
 - service layer - contains logic for commands
 - repository layer - access to bleve index
+
+# Technical stack
+- [golang](https://golang.org/) - programming language
+- [bleve](https://blevesearch.com/)   - indexing engine
 
 # Terms
 
@@ -36,11 +40,13 @@ See help
 
 # Improvements
 
+- Add search filter by item type
 - List tags
 - Match tags partially
 - Add support for logging
 - Make index location configurable
 - Add support for pagination
+- If scale is needed add partitioning by using multiple bleve indexes and aggregate results on client side
 - Split repository for each type of item
 - Make it easier to plug in other item types
 - Create a package search-crawler which have different crawlers e.g. music, document, wiki which automatically indexes their targets
